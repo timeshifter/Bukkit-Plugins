@@ -1,5 +1,7 @@
 # Commands
 
+**Note:** Arguments in angle-brackets (`<`, `>`) are **required** arguments; those found in square-brackets (`[`, `]`) are *optional*.
+
 * `/warp create <name> [public|private|global] [invite list]`
 * `/warp delete <name>`
 * `/warp list [player] [page]`
