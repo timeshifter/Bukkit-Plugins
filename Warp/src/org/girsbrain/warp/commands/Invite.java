@@ -56,7 +56,6 @@ public class Invite implements ICommand {
             return false;
         }
 
-        return WarpPlugin.hasPermission((Player) sender, "warp.invite")
-                || WarpPlugin.hasPermission((Player) sender, "warp.admin");
+        return WarpPlugin.hasPermission((Player) sender, "warp.invite");
     }
 }

@@ -47,35 +47,7 @@ public class Search implements ICommand {
         }
 
         java.util.List<Warp> warps = instance.getWarpManager().search((Player) sender, query);
-        int pages = (int) Math.ceil(warps.size() / (double) WARPS_PER_PAGE);
-        if (page < 1 || page > pages) {
-            sender.sendMessage(ChatColor.RED + "Invalid page number! " + pages + " total pages.");
-            return true;
-        }
-
-        sender.sendMessage(ChatColor.YELLOW + "------------- Page " + page + " / " + pages + " -------------");
-
-        int start = (page - 1) * WARPS_PER_PAGE;
-        int end = Math.min(start + WARPS_PER_PAGE, warps.size());
-        for (int i = start; i < end; i++) {
-            Warp warp = warps.get(i);
-            Location loc = warp.getLocation();
-
-            String location = String.format(" %s@(%.0f, %.0f, %.0f)", ChatColor.AQUA, loc.getX(), loc.getY(), loc.getZ());
-            String owner = String.format("%s%s by %s%s", ChatColor.WHITE, (warp.isPublic() ? "+" : "-"), ChatColor.YELLOW, warp.getOwner());
-            ChatColor color = ChatColor.RED;
-
-            if (warp.isOwner((Player) sender)) {
-                color = ChatColor.AQUA;
-            } else if (warp.isPublic()) {
-                color = ChatColor.GREEN;
-            } else if (warp.isGlobal()) {
-                color = ChatColor.YELLOW;
-            }
-
-            sender.sendMessage(color + warp.getName() + owner + location);
-        }
-
+        List.sendList((Player) sender, page, warps, null);
         return true;
     }
 
@@ -84,7 +56,6 @@ public class Search implements ICommand {
             return false;
         }
 
-        return WarpPlugin.hasPermission((Player) sender, "warp.search")
-                || WarpPlugin.hasPermission((Player) sender, "warp.admin");
+        return WarpPlugin.hasPermission((Player) sender, "warp.search");
     }
 }

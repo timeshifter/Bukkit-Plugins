@@ -58,7 +58,6 @@ public class Goto implements ICommand {
         }
 
         return WarpPlugin.hasPermission((Player) sender, "warp.own")
-                || WarpPlugin.hasPermission((Player) sender, "warp.other")
-                || WarpPlugin.hasPermission((Player) sender, "warp.admin");
+                || WarpPlugin.hasPermission((Player) sender, "warp.other");
     }
 }

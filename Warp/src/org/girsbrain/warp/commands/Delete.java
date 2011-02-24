@@ -14,6 +14,8 @@ import org.girsbrain.warp.WarpPlugin;
 public class Delete implements ICommand {
     public String[] getAliases() {
         return new String[]{
+            "rm",
+            "rem"
         };
     }
 
@@ -44,7 +46,7 @@ public class Delete implements ICommand {
         } else {
             sender.sendMessage(ChatColor.RED + "Failed to delete warp! Unknown error!");
         }
-        return false;
+        return true;
     }
 
     public boolean validate(WarpPlugin instance, CommandSender sender, String[] args) {
@@ -52,7 +54,6 @@ public class Delete implements ICommand {
             return false;
         }
 
-        return WarpPlugin.hasPermission((Player) sender, "warp.own")
-                || WarpPlugin.hasPermission((Player) sender, "warp.admin");
+        return WarpPlugin.hasPermission((Player) sender, "warp.own");
     }
 }

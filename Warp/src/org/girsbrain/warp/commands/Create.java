@@ -93,7 +93,6 @@ public class Create implements ICommand {
             return false;
         }
 
-        return WarpPlugin.hasPermission((Player) sender, "warp.own")
-                || WarpPlugin.hasPermission((Player) sender, "warp.admin");
+        return WarpPlugin.hasPermission((Player) sender, "warp.own");
     }
 }

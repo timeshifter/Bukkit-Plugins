@@ -190,11 +190,21 @@ public class WarpPlugin extends JavaPlugin {
         if (Permissions == null) {
             return player.isOp();
         } else {
-            return Permissions.has(player, node);
+            try {
+            return Permissions.has(player, node)
+                    || Permissions.has(player, "warp.admin");
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                return false;
+            }
         }
     }
 
     public static boolean isAdmin(Player player) {
-        return hasPermission(player, "warp.admin");
+        if (Permissions == null) {
+            return player.isOp();
+        } else {
+            return Permissions.has(player, "warp.admin");
+        }
     }
 }
