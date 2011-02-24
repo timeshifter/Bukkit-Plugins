@@ -1,0 +1,10 @@
+name: GroupMessage
+version: 1.0
+main: org.girsbrain.groupmessage.bukkit.GroupMessagePlugin
+commands:
+  mg:
+    description: Send a message to all players in a group
+    usage: /<command> <group> <message>
+  mgt:
+    description: Toggle which group to send messages to
+    usage: /<command> <group>

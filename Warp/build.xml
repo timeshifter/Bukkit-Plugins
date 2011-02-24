@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="build" name="Warp">
+    <property name="debug_level" value="source,lines,vars" />
+    <property name="target" value="1.6" />
+    <property name="source" value="1.6" />
+    <property name="bin_dir" value="./bin" />
+    <property name="build_dir" value="./build" />
+    <property name="lib_dir" value="./lib" />
+    <property name="src_dir" value="./src" />
+
+    <path id="Minecraft-Server.classpath">
+        <pathelement location="${lib_dir}/bukkit-0.0.1-SNAPSHOT.jar" />
+        <pathelement location="${lib_dir}/sqlitejdbc-v056.jar" />
+        <pathelement location="${lib_dir}/GroupManager.jar" />
+        <pathelement location="${lib_dir}/Permissions.jar" />
+    </path>
+
+    <target name="init">
+        <mkdir dir="${bin_dir}" />
+        <mkdir dir="${build_dir}" />
+        <copy includeemptydirs="false" todir="${bin_dir}">
+            <fileset dir="${src_dir}">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="clean">
+        <delete includeEmptyDirs="true">
+            <fileset dir="${bin_dir}" />
+            <fileset dir="${build_dir}" />
+        </delete>
+    </target>
+
+    <target name="build" depends="init">
+        <javac debug="true" debuglevel="${debug_level}" destdir="${bin_dir}"
+            source="${source}" target="${target}" includeantruntime="false">
+            <src path="${src_dir}" />
+            <classpath refid="Minecraft-Server.classpath" />
+        </javac>
+    </target>
+    <target name="jar" depends="build">
+        <jar destfile="${build_dir}/${ant.project.name}.jar">
+            <manifest>
+                <attribute name="Main-Class" value="Main" />
+                <attribute name="Class-Path" value="../lib/sqlitejdbc-v056.jar" />
+            </manifest>
+            <fileset dir="${bin_dir}" />
+        </jar>
+    </target>
+</project>
