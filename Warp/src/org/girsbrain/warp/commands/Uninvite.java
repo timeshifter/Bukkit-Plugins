@@ -56,7 +56,7 @@ public class Uninvite implements ICommand {
             return false;
         }
 
-        return instance.hasPermission((Player) sender, "warp.invite")
-                || instance.hasPermission((Player) sender, "warp.admin");
+        return WarpPlugin.hasPermission((Player) sender, "warp.invite")
+                || WarpPlugin.hasPermission((Player) sender, "warp.admin");
     }
 }

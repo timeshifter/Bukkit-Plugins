@@ -186,11 +186,15 @@ public class WarpPlugin extends JavaPlugin {
         }
     }
 
-    public boolean hasPermission(Player player, String node) {
+    public static boolean hasPermission(Player player, String node) {
         if (Permissions == null) {
             return player.isOp();
         } else {
             return Permissions.has(player, node);
         }
+    }
+
+    public static boolean isAdmin(Player player) {
+        return hasPermission(player, "warp.admin");
     }
 }

@@ -53,7 +53,7 @@ public class MakePublic implements ICommand {
             return false;
         }
 
-        return instance.hasPermission((Player) sender, "warp.share")
-                || instance.hasPermission((Player) sender, "warp.admin");
+        return WarpPlugin.hasPermission((Player) sender, "warp.share")
+                || WarpPlugin.hasPermission((Player) sender, "warp.admin");
     }
 }

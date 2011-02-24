@@ -157,6 +157,11 @@ public class Warp {
     }
 
     public boolean hasAccess(Player player) {
+        // Admins ignore all access settings!
+        if (WarpPlugin.isAdmin(player)) {
+            return true;
+        }
+
         // Owners always have access
         if (player.getName().equals(owner)) {
             return true;

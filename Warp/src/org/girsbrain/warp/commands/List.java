@@ -41,7 +41,7 @@ public class List implements ICommand {
             if (Util.isInteger(args[0])) {
                 page = Integer.parseInt(args[0]);
             } else {
-                if (instance.hasPermission(forPlayer, "warp.other")) {
+                if (WarpPlugin.hasPermission(forPlayer, "warp.other")) {
                     sender.sendMessage(ChatColor.RED + "Permission denied!");
                     return true;
                 }
@@ -89,8 +89,8 @@ public class List implements ICommand {
             return false;
         }
 
-        return instance.hasPermission((Player) sender, "warp.own")
-                || instance.hasPermission((Player) sender, "warp.other")
-                || instance.hasPermission((Player) sender, "warp.admin");
+        return WarpPlugin.hasPermission((Player) sender, "warp.own")
+                || WarpPlugin.hasPermission((Player) sender, "warp.other")
+                || WarpPlugin.hasPermission((Player) sender, "warp.admin");
     }
 }

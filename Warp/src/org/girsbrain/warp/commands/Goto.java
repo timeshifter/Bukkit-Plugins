@@ -34,7 +34,7 @@ public class Goto implements ICommand {
         String name = args[0];
         
         if (args.length > 1) {
-            if (!instance.hasPermission((Player) sender, "warp.other")) {
+            if (!WarpPlugin.hasPermission((Player) sender, "warp.other")) {
                 sender.sendMessage(ChatColor.RED + "Permission denied!");
                 return true;
             }
@@ -57,8 +57,8 @@ public class Goto implements ICommand {
             return false;
         }
 
-        return instance.hasPermission((Player) sender, "warp.own")
-                || instance.hasPermission((Player) sender, "warp.other")
-                || instance.hasPermission((Player) sender, "warp.admin");
+        return WarpPlugin.hasPermission((Player) sender, "warp.own")
+                || WarpPlugin.hasPermission((Player) sender, "warp.other")
+                || WarpPlugin.hasPermission((Player) sender, "warp.admin");
     }
 }
