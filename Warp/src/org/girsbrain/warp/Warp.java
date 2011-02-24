@@ -176,7 +176,7 @@ public class Warp {
     }
 
     public boolean matches(Player player, String name) {
-        if (!isOwner(player)) {
+        if (!isGlobal() && !isOwner(player)) {
             return false;
         }
 
@@ -184,7 +184,7 @@ public class Warp {
     }
 
     public boolean matches(String player, String name) {
-        if (!isOwner(player)) {
+        if (!isGlobal() && !isOwner(player)) {
             return false;
         }
 

@@ -114,6 +114,7 @@ public class WarpPlugin extends JavaPlugin {
         registerCommand(Search.class);
         registerCommand(MakePublic.class);
         registerCommand(MakePrivate.class);
+        registerCommand(MakeGlobal.class);
         registerCommand(Invite.class);
         registerCommand(Uninvite.class);
     }
