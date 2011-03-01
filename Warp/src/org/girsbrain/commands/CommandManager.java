@@ -2,6 +2,7 @@ package org.girsbrain.commands;
 
 import java.util.HashMap;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -50,15 +51,22 @@ public class CommandManager {
      */
     public boolean handler(CommandSender sender, Command command, String commandLabel, String[] args) {
         if (args.length == 0) {
-            return false;
+            showHelp(sender);
+            return true;
         }
 
         // Save the sub-command then shift if off the args array
         String subCommand = args[0];
+        String[] subArgs = new String[] {};
         if (args.length > 1) {
-            System.arraycopy(args, 1, args, 0, args.length - 1);
-        } else {
-            args = new String[] {};
+            subArgs = new String[args.length - 1];
+            System.arraycopy(args, 1, subArgs, 0, args.length - 1);
+        }
+
+        sender.sendMessage("Sent: " + subCommand);
+        if (subCommand.equalsIgnoreCase("help")) {
+            showHelp(sender);
+            return true;
         }
 
         ICommand cmd = findCommand(subCommand);
@@ -67,19 +75,19 @@ public class CommandManager {
             if (cmd == null) {
                 return false;
             }
-            if (args.length > 0) {
-                args = new String[] {subCommand, args[0]};
+            if (subArgs.length > 0) {
+                subArgs = new String[] {subCommand, subArgs[0]};
             } else {
-                args = new String[] {subCommand};
+                subArgs = new String[] {subCommand};
             }
         }
 
         // Validate permissions
-        if (!cmd.validate(plugin, sender, args)) {
+        if (!cmd.validate(plugin, sender, subArgs)) {
             return false;
         }
 
-        if (!cmd.execute(plugin, sender, args)) {
+        if (!cmd.execute(plugin, sender, subArgs)) {
             sender.sendMessage(cmd.getHelp());
         }
         return true;
@@ -108,5 +116,11 @@ public class CommandManager {
 
         // At this point we just cannot find the command
         return null;
+    }
+
+    private void showHelp(CommandSender sender) {
+        for (ICommand cmd : commands.values()) {
+            sender.sendMessage(ChatColor.RED + "/warp " + cmd.getName() + " " + cmd.getHelp());
+        }
     }
 }

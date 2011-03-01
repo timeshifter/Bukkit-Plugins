@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 
 import org.girsbrain.commands.ICommand;
 import org.girsbrain.warp.Log;
-import org.girsbrain.utils.StringFormatter;
+import org.girsbrain.warp.utils.StringFormatter;
 import org.girsbrain.warp.Warp;
 import org.girsbrain.warp.Warp.Visibility;
 import org.girsbrain.warp.WarpPlugin;
@@ -28,7 +28,7 @@ public class Create implements ICommand {
     }
 
     public String getHelp() {
-        return "/warp create <name> [private|public] [invites]";
+        return "<name> [private|public] [invites]";
     }
 
     /**

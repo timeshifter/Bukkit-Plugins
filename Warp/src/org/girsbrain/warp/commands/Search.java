@@ -1,21 +1,18 @@
 package org.girsbrain.warp.commands;
 
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import org.girsbrain.commands.ICommand;
-import org.girsbrain.utils.Util;
+import org.girsbrain.warp.utils.Util;
 import org.girsbrain.warp.Warp;
 import org.girsbrain.warp.WarpPlugin;
+import org.girsbrain.warp.utils.Paginator;
 
 /**
  * @author jlogsdon
  */
 public class Search implements ICommand {
-    private static final int WARPS_PER_PAGE = 7;
-
     public String[] getAliases() {
         return new String[]{
         };
@@ -26,7 +23,7 @@ public class Search implements ICommand {
     }
 
     public String getHelp() {
-        return "/warp search <query>";
+        return "<query>";
     }
 
     public boolean execute(WarpPlugin instance, CommandSender sender, String[] args) {
@@ -47,7 +44,8 @@ public class Search implements ICommand {
         }
 
         java.util.List<Warp> warps = instance.getWarpManager().search((Player) sender, query);
-        List.sendList((Player) sender, page, warps, null);
+        Paginator displayer = new Paginator(warps, (Player) sender);
+        displayer.display((Player) sender, page);
         return true;
     }
 

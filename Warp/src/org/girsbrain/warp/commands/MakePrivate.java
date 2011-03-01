@@ -22,7 +22,7 @@ public class MakePrivate implements ICommand {
     }
 
     public String getHelp() {
-        return "/warp private <name>";
+        return "<name>";
     }
 
     public boolean execute(WarpPlugin instance, CommandSender sender, String[] args) {

@@ -60,6 +60,11 @@ public class WarpManager {
 
         for (Warp warp : warps) {
             if (warp.matches(player, name)) {
+                // If the name is an exact match return it!
+                if (warp.getName().equalsIgnoreCase(name)) {
+                    return warp;
+                }
+
                 found.add(warp);
             }
         }
@@ -76,6 +81,18 @@ public class WarpManager {
 
         for (Warp warp : warps) {
             if (warp.hasAccess(player)) {
+                list.add(warp);
+            }
+        }
+
+        return list;
+    }
+
+    public List<Warp> listGlobal() {
+        List<Warp> list = new ArrayList<Warp>();
+
+        for (Warp warp : warps) {
+            if (warp.isGlobal()) {
                 list.add(warp);
             }
         }

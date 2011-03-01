@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import org.bukkit.Server;
 
 import org.girsbrain.warp.Log;
-import org.girsbrain.utils.StringFormatter;
+import org.girsbrain.warp.utils.StringFormatter;
 
 import org.girsbrain.warp.Warp;
 

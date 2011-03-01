@@ -22,7 +22,7 @@ public class MakePublic implements ICommand {
     }
 
     public String getHelp() {
-        return "/warp public <name>";
+        return "<name>";
     }
 
     public boolean execute(WarpPlugin instance, CommandSender sender, String[] args) {

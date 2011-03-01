@@ -13,14 +13,14 @@ import org.girsbrain.warp.utils.Paginator;
 /**
  * @author jlogsdon
  */
-public class List implements ICommand {
+public class ListGlobal implements ICommand {
     public String[] getAliases() {
         return new String[]{
         };
     }
 
     public String getName() {
-        return "list";
+        return "listg";
     }
 
     public String getHelp() {
@@ -28,24 +28,16 @@ public class List implements ICommand {
     }
 
     public boolean execute(WarpPlugin instance, CommandSender sender, String[] args) {
-        java.util.List<Warp> warps = instance.getWarpManager().list((Player) sender);
-        String forPlayer = null;
+        java.util.List<Warp> warps = instance.getWarpManager().listGlobal();
         int page = 1;
 
         if (args.length >= 1) {
             if (Util.isInteger(args[0])) {
                 page = Integer.parseInt(args[0]);
-            } else {
-                if (!WarpPlugin.hasPermission((Player) sender, "warp.other")) {
-                    sender.sendMessage(ChatColor.RED + "Permission denied!");
-                    return true;
-                }
-
-                forPlayer = args[0];
             }
         }
 
-        Paginator displayer = new Paginator(warps, (Player) sender, forPlayer);
+        Paginator displayer = new Paginator(warps, (Player) sender);
         displayer.display((Player) sender, page);
         return true;
     }

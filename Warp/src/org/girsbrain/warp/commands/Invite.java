@@ -22,7 +22,7 @@ public class Invite implements ICommand {
     }
 
     public String getHelp() {
-        return "/warp invite <name> <player>";
+        return "<name> <player>";
     }
 
     public boolean execute(WarpPlugin instance, CommandSender sender, String[] args) {

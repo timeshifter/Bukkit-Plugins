@@ -22,7 +22,7 @@ public class MakeGlobal implements ICommand {
     }
 
     public String getHelp() {
-        return "/warp global <name>";
+        return "<name>";
     }
 
     public boolean execute(WarpPlugin instance, CommandSender sender, String[] args) {

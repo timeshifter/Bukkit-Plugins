@@ -22,7 +22,7 @@ public class Uninvite implements ICommand {
     }
 
     public String getHelp() {
-        return "/warp uninvite <name> <player>";
+        return "<name> <player>";
     }
 
     public boolean execute(WarpPlugin instance, CommandSender sender, String[] args) {
