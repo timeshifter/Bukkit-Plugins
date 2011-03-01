@@ -1,4 +1,4 @@
-package org.girsbrain.utils;
+package org.girsbrain.groupmessage.utils;
 
 import java.util.ArrayList;
 

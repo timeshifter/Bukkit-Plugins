@@ -17,7 +17,7 @@ import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
 
 import org.girsbrain.groupmessage.Log;
-import org.girsbrain.utils.StringFormatter;
+import org.girsbrain.groupmessage.utils.StringFormatter;
 
 /**
  * @author jlogsdon
@@ -97,7 +97,6 @@ public class GroupMessagePlugin extends JavaPlugin {
         }
 
         String group = args[0];
-        System.arraycopy(args, 1, args, 0, args.length - 1);
         sendToGroups(sender, group, args);
         return true;
     }
@@ -127,7 +126,7 @@ public class GroupMessagePlugin extends JavaPlugin {
     }
 
     public void sendToGroups(Player sender, String group, String[] args) {
-        sendToGroups(sender, group, StringFormatter.join(" ", args));
+        sendToGroups(sender, group, StringFormatter.join(" ", args, 1));
     }
 
     public void sendToGroups(Player sender, String group, String message) {
