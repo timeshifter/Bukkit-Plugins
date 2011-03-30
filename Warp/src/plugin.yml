@@ -1,7 +1,0 @@
-name: Warp
-version: 1.0
-main: org.girsbrain.warp.WarpPlugin
-commands:
-  warp:
-    description: Manage warps
-    usage: /<command> [operation]
