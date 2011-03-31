@@ -1,23 +1,23 @@
-package org.girsbrain.bukkit.ports.commands;
+package org.girsbrain.bukkit.warp.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
-import org.girsbrain.bukkit.ports.PortsPlugin;
+import org.girsbrain.bukkit.warp.WarpPlugin;
 import org.girsbrain.utils.command.Command;
 
 /**
  * @author jlogsdon
  */
 public class MakeGlobalCommand extends Command {
-    protected PortsPlugin plugin;
+    protected WarpPlugin plugin;
 
-    public MakeGlobalCommand(PortsPlugin instance) {
+    public MakeGlobalCommand(WarpPlugin instance) {
         plugin = instance;
 
         name = "global";
         usage = "<warp>";
-        permissions = new String[]{"ports.share.global"};
+        permissions = new String[]{"warp.share.global"};
 
         description = "Makes a warp global";
         help = new String[]{

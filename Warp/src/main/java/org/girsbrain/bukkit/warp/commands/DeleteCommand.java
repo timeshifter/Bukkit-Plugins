@@ -1,22 +1,22 @@
-package org.girsbrain.bukkit.ports.commands;
+package org.girsbrain.bukkit.warp.commands;
 
 import org.bukkit.command.CommandSender;
 
-import org.girsbrain.bukkit.ports.PortsPlugin;
+import org.girsbrain.bukkit.warp.WarpPlugin;
 import org.girsbrain.utils.command.Command;
 
 /**
  * @author jlogsdon
  */
 public class DeleteCommand extends Command {
-    protected PortsPlugin plugin;
+    protected WarpPlugin plugin;
 
-    public DeleteCommand(PortsPlugin instance) {
+    public DeleteCommand(WarpPlugin instance) {
         plugin = instance;
 
         name = "delete";
         usage = "<name>";
-        permissions = new String[]{"port.delete"};
+        permissions = new String[]{"warp.create"};
 
         description = "Delete a warp";
         help = new String[]{

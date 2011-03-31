@@ -1,6 +1,6 @@
-package org.girsbrain.bukkit.ports;
+package org.girsbrain.bukkit.warp;
 
-import org.girsbrain.bukkit.ports.commands.*;
+import org.girsbrain.bukkit.warp.commands.*;
 
 import org.girsbrain.utils.BasePlugin;
 import org.girsbrain.utils.command.Manager;
@@ -10,8 +10,9 @@ import org.girsbrain.utils.database.ConnectionSettings;
 /**
  * @author jlogsdon
  */
-public class PortsPlugin extends BasePlugin {
+public class WarpPlugin extends BasePlugin {
     protected ConnectionSettings settings;
+    @SuppressWarnings("FieldNameHidesFieldInSuperclass")
     protected final Class clazz = getClass();
 
     @Override

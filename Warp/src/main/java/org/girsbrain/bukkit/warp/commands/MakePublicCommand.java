@@ -1,23 +1,23 @@
-package org.girsbrain.bukkit.ports.commands;
+package org.girsbrain.bukkit.warp.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
-import org.girsbrain.bukkit.ports.PortsPlugin;
+import org.girsbrain.bukkit.warp.WarpPlugin;
 import org.girsbrain.utils.command.Command;
 
 /**
  * @author jlogsdon
  */
 public class MakePublicCommand extends Command {
-    protected PortsPlugin plugin;
+    protected WarpPlugin plugin;
 
-    public MakePublicCommand(PortsPlugin instance) {
+    public MakePublicCommand(WarpPlugin instance) {
         plugin = instance;
 
         name = "public";
         usage = "<warp>";
-        permissions = new String[]{"ports.share.public"};
+        permissions = new String[]{"warp.share.public"};
 
         description = "Makes a warp public";
         help = new String[]{

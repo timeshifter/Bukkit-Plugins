@@ -1,6 +1,6 @@
-name: Ports
+name: Warp
 version: 0.1
-main: org.girsbrain.bukkit.ports.PortsPlugin
+main: org.girsbrain.bukkit.warp.WarpPlugin
 commands:
   warp:
     description: Manage and use warps

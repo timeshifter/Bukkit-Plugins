@@ -1,23 +1,23 @@
-package org.girsbrain.bukkit.ports.commands;
+package org.girsbrain.bukkit.warp.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
-import org.girsbrain.bukkit.ports.PortsPlugin;
+import org.girsbrain.bukkit.warp.WarpPlugin;
 import org.girsbrain.utils.command.Command;
 
 /**
  * @author jlogsdon
  */
 public class InviteCommand extends Command {
-    protected PortsPlugin plugin;
+    protected WarpPlugin plugin;
 
-    public InviteCommand(PortsPlugin instance) {
+    public InviteCommand(WarpPlugin instance) {
         plugin = instance;
 
         name = "invite";
         usage = "<warp> <player>";
-        permissions = new String[]{"port.share.invite"};
+        permissions = new String[]{"warp.share.invite"};
 
         description = "Invite a user from a warp";
         help = new String[]{

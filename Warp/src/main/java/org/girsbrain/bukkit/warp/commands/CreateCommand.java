@@ -1,22 +1,22 @@
-package org.girsbrain.bukkit.ports.commands;
+package org.girsbrain.bukkit.warp.commands;
 
 import org.bukkit.command.CommandSender;
 
-import org.girsbrain.bukkit.ports.PortsPlugin;
+import org.girsbrain.bukkit.warp.WarpPlugin;
 import org.girsbrain.utils.command.Command;
 
 /**
  * @author jlogsdon
  */
 public class CreateCommand extends Command {
-    protected PortsPlugin plugin;
+    protected WarpPlugin plugin;
 
-    public CreateCommand(PortsPlugin instance) {
+    public CreateCommand(WarpPlugin instance) {
         plugin = instance;
 
         name = "create";
         usage = "<name> [public|private|global] [invite...]";
-        permissions = new String[]{"port.create"};
+        permissions = new String[]{"warp.create"};
 
         description = "Create a warp";
         help = new String[]{
