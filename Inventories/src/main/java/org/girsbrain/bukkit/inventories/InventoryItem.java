@@ -7,7 +7,7 @@ import org.bukkit.inventory.ItemStack;
 /**
  * @author jlogsdon
  */
-final class InventoryItem implements Serializable {
+final public class InventoryItem implements Serializable {
     private final static long serialVersionUID = 2433424709013450694L;
     private int typeId;
     private int quantity = 0;

@@ -19,6 +19,7 @@ public class InventoriesPlugin extends BasePlugin {
     private final InventoryManager manager = new InventoryManager(this);
     private final ConcurrentHashMap<String, String> playerWorlds = new ConcurrentHashMap<String, String>();
     private final HashMap<String, String> worldShares = new HashMap<String, String>();
+    @SuppressWarnings("FieldNameHidesFieldInSuperclass")
     protected final Class clazz = getClass();
 
     @Override
@@ -34,12 +35,19 @@ public class InventoriesPlugin extends BasePlugin {
         for (String world : primaryWorlds) {
             List<Object> shares = config.getList("shares." + world);
             if (null == shares) {
+                getLogger().info("  " + world + " has no shares");
                 continue;
             }
+
+            getLogger().info("  " + world);
             for (Object share : shares) {
-                getLogger().info("  " + share + " => " + world);
+                getLogger().info("    " + share);
                 worldShares.put(share.toString(), world);
             }
+        }
+
+        if (!manager.loadFromDisk()) {
+            getLogger().severe("Failed to load inventories!");
         }
     }
 
@@ -47,7 +55,6 @@ public class InventoriesPlugin extends BasePlugin {
     protected void registerEvents() {
         registerEvent(playerListener, Event.Type.PLAYER_JOIN);
         registerEvent(playerListener, Event.Type.PLAYER_QUIT);
-        registerEvent(worldListener, Event.Type.WORLD_LOAD);
         registerEvent(worldListener, Event.Type.WORLD_SAVE);
 
         getServer().getScheduler().scheduleSyncRepeatingTask(this, new WorldChangeTask(), 20L, 20L);

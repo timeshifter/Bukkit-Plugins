@@ -1,5 +1,11 @@
 package org.girsbrain.bukkit.inventories;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.concurrent.ConcurrentHashMap;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -9,7 +15,7 @@ import org.bukkit.inventory.ItemStack;
  */
 public class InventoryManager {
     private final InventoriesPlugin plugin;
-    private final ConcurrentHashMap<String, InventoryItem[][]> inventories = new ConcurrentHashMap<String, InventoryItem[][]>();
+    private ConcurrentHashMap<String, InventoryItem[][]> inventories = new ConcurrentHashMap<String, InventoryItem[][]>();
 
     public InventoryManager(InventoriesPlugin instance) {
         plugin = instance;
@@ -61,6 +67,34 @@ public class InventoryManager {
         loadInventory(player, player.getWorld().getName());
     }
 
+    public boolean loadFromDisk() {
+        File readPath = new File(plugin.getDataFolder(), "inventories.dat");
+        FileInputStream readStream = null;
+        ObjectInputStream objStream = null;
+
+        if (!readPath.exists()) {
+            return false;
+        }
+
+        try {
+            readStream = new FileInputStream(readPath);
+            objStream = new ObjectInputStream(readStream);
+            inventories = (ConcurrentHashMap<String, InventoryItem[][]>) objStream.readObject();
+            return true;
+        } catch (IOException e) {
+            return false;
+        } catch (ClassNotFoundException e) {
+            return false;
+        } finally {
+            if (objStream != null) {
+                try {
+                    objStream.close();
+                } catch (IOException e) {
+                }
+            }
+        }
+    }
+
     /**
      * Saves a players inventory to memory.
      *
@@ -76,6 +110,28 @@ public class InventoryManager {
 
     public void saveInventory(Player player) {
         saveInventory(player, player.getWorld().getName());
+    }
+
+    public boolean saveToDisk() {
+        File savePath = new File(plugin.getDataFolder(), "inventories.dat");
+        FileOutputStream saveStream = null;
+        ObjectOutputStream objStream = null;
+
+        try {
+            saveStream = new FileOutputStream(savePath);
+            objStream = new ObjectOutputStream(saveStream);
+            objStream.writeObject(inventories);
+            return true;
+        } catch (IOException e) {
+            return false;
+        } finally {
+            if (objStream != null) {
+                try {
+                    objStream.close();
+                } catch (IOException e) {
+                }
+            }
+        }
     }
 
     private String inventoryKey(Player player, String world) {
