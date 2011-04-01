@@ -99,5 +99,5 @@ abstract public class Command {
         return false;
     }
 
-    abstract public void execute(CommandSender sender, String[] args);
+    abstract public boolean execute(CommandSender sender, String[] args);
 }

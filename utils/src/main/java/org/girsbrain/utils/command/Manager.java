@@ -59,8 +59,7 @@ public class Manager implements CommandExecutor {
             return false;
         }
 
-        localCommand.execute(sender, subArgs);
-        return false;
+        return localCommand.execute(sender, subArgs);
     }
 
     private boolean handleHelp(CommandSender sender, String[] args) {
