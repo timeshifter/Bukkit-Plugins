@@ -1,6 +1,8 @@
 package org.girsbrain.bukkit.warp.commands;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import org.girsbrain.bukkit.warp.WarpPlugin;
 import org.girsbrain.utils.command.Command;
@@ -25,6 +27,12 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(CommandSender sender, String[] args) {
+    public boolean execute(CommandSender sender, String[] args) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(ChatColor.RED + "This command cannot be run from the console!");
+            return true;
+        }
+
+        return true;
     }
 }

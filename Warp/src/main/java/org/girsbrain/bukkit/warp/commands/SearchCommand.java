@@ -1,8 +1,12 @@
 package org.girsbrain.bukkit.warp.commands;
 
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import org.girsbrain.bukkit.warp.WarpPlugin;
+import org.girsbrain.bukkit.warp.datasource.WarpManager;
+import org.girsbrain.bukkit.warp.datasource.WarpSet;
+import org.girsbrain.bukkit.warp.renderers.*;
 import org.girsbrain.utils.command.Command;
 
 /**
@@ -15,7 +19,7 @@ public class SearchCommand extends Command {
         plugin = instance;
 
         name = "search";
-        usage = "<query> [page]";
+        usage = "[page] <query>";
         permissions = new String[]{"warp.use.own", "warp.use.shared"};
 
         description = "Search warps you have access to";
@@ -26,6 +30,30 @@ public class SearchCommand extends Command {
     }
 
     @Override
-    public void execute(CommandSender sender, String[] args) {
+    public boolean execute(CommandSender sender, String[] args) {
+        if (args.length < 1) {
+            return false;
+        }
+
+        String[] sendArgs = args;
+        int page = 0;
+
+        try {
+            page = Integer.parseInt(args[0]);
+            sendArgs = new String[args.length - 1];
+            System.arraycopy(args, 1, sendArgs, 0, sendArgs.length);
+        } catch (NumberFormatException ex) {
+        }
+
+        WarpSet set = WarpManager.search(sendArgs);
+        Renderer renderer = new ConsoleRenderer(set);
+
+        if (sender instanceof Player) {
+            renderer = new PlayerRenderer(set);
+            ((PlayerRenderer) renderer).setPage(page);
+        }
+
+        renderer.render(sender);
+        return true;
     }
 }
