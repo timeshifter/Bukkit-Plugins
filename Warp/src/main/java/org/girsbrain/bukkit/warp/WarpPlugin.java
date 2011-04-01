@@ -1,6 +1,8 @@
 package org.girsbrain.bukkit.warp;
 
 import org.girsbrain.bukkit.warp.commands.*;
+import org.girsbrain.bukkit.warp.datasource.WarpDataSource;
+import org.girsbrain.bukkit.warp.datasource.WarpManager;
 
 import org.girsbrain.utils.BasePlugin;
 import org.girsbrain.utils.command.Manager;
@@ -29,6 +31,14 @@ public class WarpPlugin extends BasePlugin {
         settings.setPass(config.getString("database.pass", settings.getPass()));
         settings.setPort(config.getInt("database.port", settings.getPort()));
         ConnectionManager.createConnection(this, settings);
+
+        if (!WarpDataSource.initialize(this)) {
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        } else {
+            WarpManager.setWarps(WarpDataSource.getWarps(this));
+            getLogger().info(String.format("Loaded %d warps", WarpManager.count()));
+        }
     }
 
     @Override
