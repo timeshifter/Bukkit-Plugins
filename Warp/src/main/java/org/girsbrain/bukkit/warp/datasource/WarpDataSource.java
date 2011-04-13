@@ -37,18 +37,20 @@ public class WarpDataSource {
     private static PreparedStatement delete;
 
     public static boolean initialize(WarpPlugin plugin) {
-        boolean success = tableExists(plugin) || createTable(plugin);
-
-        if (success) {
-            try {
-                setupStatements();
-            } catch (SQLException e) {
-                plugin.getLogger().severe("Failed to prepare database!");
-                success = false;
+        try {
+            if (!tableExists()) {
+                plugin.getLogger().warning("Warps table does not exist, attempting to create...");
+                createTable();
             }
+
+            plugin.getLogger().info("Preparing database...");
+            setupStatements();
+            return true;
+        } catch (SQLException ex) {
+            plugin.getLogger().severe("Error preparing database: " + ex.getMessage());
         }
 
-        return success;
+        return false;
     }
 
     public static List<Warp> getWarps(WarpPlugin plugin) {
@@ -96,9 +98,8 @@ public class WarpDataSource {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
+            return 0;
         }
-
-        return 0;
     }
 
     public static boolean saveWarp(Warp warp) {
@@ -154,7 +155,7 @@ public class WarpDataSource {
         stmt.setString(10, StringFormatter.join(",", warp.getInvited().toArray()));
     }
 
-    private static boolean tableExists(WarpPlugin plugin) {
+    private static boolean tableExists() throws SQLException {
         ResultSet rs = null;
 
         try {
@@ -164,7 +165,7 @@ public class WarpDataSource {
             rs = conn.getMetaData().getTables(null, null, "warps", null);
             return rs.next();
         } catch (SQLException ex) {
-            return false;
+            throw ex;
         } finally {
             if (rs != null) {
                 try {
@@ -175,15 +176,15 @@ public class WarpDataSource {
         }
     }
 
-    private static boolean createTable(WarpPlugin plugin) {
-        plugin.getLogger().warning("Warps table does not exist, attempting to create...");
+    private static void createTable() throws SQLException {
         Statement st = null;
+
         try {
             Connection conn = ConnectionManager.getConnection();
             st = conn.createStatement();
             st.executeUpdate(WARP_TABLE);
-            return true;
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
+            throw ex;
         } finally {
             try {
                 if (st != null) {
@@ -192,9 +193,6 @@ public class WarpDataSource {
             } catch (SQLException e) {
             }
         }
-
-        plugin.getLogger().severe("Failed to create warps table!");
-        return false;
     }
 
     private static void setupStatements() throws SQLException {

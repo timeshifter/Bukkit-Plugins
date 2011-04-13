@@ -33,8 +33,8 @@ public class WarpPlugin extends BasePlugin {
         ConnectionManager.createConnection(this, settings);
 
         if (!WarpDataSource.initialize(this)) {
+            getLogger().severe("Setup did not complete! Disabling plugin!");
             getServer().getPluginManager().disablePlugin(this);
-            return;
         } else {
             WarpManager.setWarps(WarpDataSource.getWarps(this));
             getLogger().info(String.format("Loaded %d warps", WarpManager.count()));

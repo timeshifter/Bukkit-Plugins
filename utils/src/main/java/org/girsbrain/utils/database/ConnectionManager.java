@@ -10,14 +10,10 @@ import org.girsbrain.utils.BasePlugin;
  * @author jlogsdon
  */
 public class ConnectionManager {
-    public static Connection getConnection() {
-        try {
-            Connection conn = DriverManager.getConnection("jdbc:jdc:jdcpool");
-            conn.setAutoCommit(false);
-            return conn;
-        } catch (SQLException e) {
-            return null;
-        }
+    public static Connection getConnection() throws SQLException {
+        Connection conn = DriverManager.getConnection("jdbc:jdc:jdcpool");
+        conn.setAutoCommit(false);
+        return conn;
     }
 
     public static boolean createConnection(BasePlugin plugin, ConnectionSettings settings) {
@@ -33,6 +29,7 @@ public class ConnectionManager {
         } catch (SQLException e) {
             plugin.getLogger().severe("Error during connection: " + e.getMessage());
         }
+
         return false;
     }
 }
