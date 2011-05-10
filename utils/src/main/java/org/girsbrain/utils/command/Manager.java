@@ -13,6 +13,7 @@ import org.girsbrain.utils.StringFormatter;
  */
 public class Manager implements CommandExecutor {
     private List<Command> commands = new ArrayList<Command>();
+    private String defaultCommand = null;
     private BasePlugin plugin;
     private String mainCommand;
 
@@ -24,6 +25,10 @@ public class Manager implements CommandExecutor {
     public void registerCommand(Command command) {
         plugin.getLogger().info("Registering command: " + command.getName());
         commands.add(command);
+    }
+
+    public void setDefaultCommand(String command) {
+        defaultCommand = command;
     }
 
     public Command findCommand(String command) {
@@ -52,6 +57,10 @@ public class Manager implements CommandExecutor {
         System.arraycopy(args, 1, subArgs, 0, args.length - 1);
 
         Command localCommand = findCommand(subCommand);
+        if (localCommand == null && null != defaultCommand) {
+            localCommand = findCommand(defaultCommand);
+            subArgs = args;
+        }
         if (localCommand == null) {
             return handleHelp(sender, subCommand.equalsIgnoreCase("help") ? subArgs : args);
         }
