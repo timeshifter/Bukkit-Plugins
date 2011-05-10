@@ -1,0 +1,22 @@
+name: General
+version: 0.2
+main: org.girsbrain.bukkit.general.GeneralPlugin
+commands:
+  getpos:
+    description: Get your current position
+    usage: /<command>
+  compass:
+    description: Get the cardinal direction you are facing
+    usage: /<command>
+  who:
+    aliases: [whois, whos, player, players, listplayers, online, list]
+    description: List online players or show player details.
+    usage: /<command> [player]
+  msg:
+    aliases: [priv, tell, pm, whisper, w]
+    description: Send a private message to another player.
+    usage: /<command> <player> <msg>
+  reply:
+    aliases: [r]
+    description: Reply to the last player to private message you.
+    usage: /<command> <msg>
