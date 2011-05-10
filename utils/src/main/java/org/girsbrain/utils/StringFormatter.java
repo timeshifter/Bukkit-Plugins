@@ -14,9 +14,12 @@ public class StringFormatter {
         }
 
         StringBuilder builder = new StringBuilder();
-        for (Object part : parts) {
-            builder.append(part.toString()).append(glue);
+        for (int i = 0; i < parts.length; i++) {
+            builder.append(parts[i].toString());
+            if (i != parts.length - 1) {
+                builder.append(glue);
+            }
         }
-        return builder.toString().trim();
+        return builder.toString();
     }
 }
