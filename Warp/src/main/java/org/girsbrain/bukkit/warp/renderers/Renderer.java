@@ -4,8 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.girsbrain.bukkit.warp.datasource.Warp;
-import org.girsbrain.bukkit.warp.datasource.Warp.Location;
-import org.girsbrain.bukkit.warp.datasource.WarpSet;
+import org.girsbrain.bukkit.warp.datasource.Warp.InnerLocation;
 
 /**
  * @author jlogsdon
@@ -21,7 +20,7 @@ abstract public class Renderer {
      * @return
      */
     public static String renderWarp(CommandSender sender, Warp warp) {
-        Location loc = warp.getLocation();
+        InnerLocation loc = warp.getLocation();
         String location = "";
 
         if (!(sender instanceof Player)) {

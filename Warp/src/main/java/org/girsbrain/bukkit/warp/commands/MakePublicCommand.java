@@ -5,6 +5,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import org.girsbrain.bukkit.warp.WarpPlugin;
+import org.girsbrain.bukkit.warp.datasource.Warp;
+import org.girsbrain.bukkit.warp.datasource.WarpManager;
 import org.girsbrain.utils.command.Command;
 
 /**
@@ -37,6 +39,25 @@ public class MakePublicCommand extends Command {
             return true;
         }
 
+        String name = args[0];
+        Warp warp = WarpManager.get((Player) sender, args[0]);
+
+        if (null == warp) {
+            sender.sendMessage(ChatColor.RED + "No warp by the name of '" + ChatColor.GREEN + name + ChatColor.RED + "' could be found!");
+            return true;
+        }
+        if (warp.getType() == Warp.Type.PUBLIC) {
+            sender.sendMessage(ChatColor.GREEN + warp.getName() + ChatColor.RED + " is already public!");
+            return true;
+        }
+
+        warp.setType(Warp.Type.PUBLIC);
+
+        if (WarpManager.update(warp)) {
+            sender.sendMessage(ChatColor.GREEN + "Warp is now public!");
+        } else {
+            sender.sendMessage(ChatColor.RED + "Failed to save warp! Unknown reason!");
+        }
         return true;
     }
 }

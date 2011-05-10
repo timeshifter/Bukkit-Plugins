@@ -98,8 +98,9 @@ public class WarpDataSource {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
-            return 0;
         }
+
+        return 0;
     }
 
     public static boolean saveWarp(Warp warp) {

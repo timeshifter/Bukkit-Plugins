@@ -5,6 +5,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import org.girsbrain.bukkit.warp.WarpPlugin;
+import org.girsbrain.bukkit.warp.datasource.Warp;
+import org.girsbrain.bukkit.warp.datasource.WarpManager;
 import org.girsbrain.utils.command.Command;
 
 /**
@@ -37,6 +39,25 @@ public class MakeGlobalCommand extends Command {
             return true;
         }
 
+        String name = args[0];
+        Warp warp = WarpManager.get((Player) sender, args[0]);
+
+        if (null == warp) {
+            sender.sendMessage(ChatColor.RED + "No warp by the name of '" + ChatColor.GREEN + name + ChatColor.RED + "' could be found!");
+            return true;
+        }
+        if (warp.getType() == Warp.Type.GLOBAL) {
+            sender.sendMessage(ChatColor.GREEN + warp.getName() + ChatColor.RED + " is already global!");
+            return true;
+        }
+
+        warp.setType(Warp.Type.GLOBAL);
+
+        if (WarpManager.update(warp)) {
+            sender.sendMessage(ChatColor.GREEN + "Warp is now global!");
+        } else {
+            sender.sendMessage(ChatColor.RED + "Failed to save warp! Unknown reason!");
+        }
         return true;
     }
 }

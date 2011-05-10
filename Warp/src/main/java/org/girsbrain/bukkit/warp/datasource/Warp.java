@@ -5,8 +5,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.bukkit.Location;
 
 import org.bukkit.Server;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import org.girsbrain.utils.permissions.PermissionsHandler;
@@ -19,7 +21,7 @@ public class Warp {
     private String owner;
     private String name;
     private String world;
-    private Location location;
+    private InnerLocation location;
     private Type type = Type.PRIVATE;
     private final List<String> invited = new ArrayList<String>();
 
@@ -27,7 +29,7 @@ public class Warp {
         owner = player.getName();
         this.name = name;
         world = player.getWorld().getName();
-        location = new Location(player.getLocation());
+        location = new InnerLocation(player.getLocation());
     }
 
     public Warp(Server server, ResultSet set) throws SQLException, Exception {
@@ -68,7 +70,7 @@ public class Warp {
     }
 
     public void addInvite(String player) {
-        if (!isInvited(player)) {
+        if (!player.isEmpty() && !isInvited(player)) {
             invited.add(player.toLowerCase());
         }
     }
@@ -83,7 +85,7 @@ public class Warp {
         }
     }
 
-    public Location getLocation() {
+    public InnerLocation getLocation() {
         return location;
     }
 
@@ -98,7 +100,7 @@ public class Warp {
         float pitch = set.getFloat("pitch");
         float yaw = set.getFloat("yaw");
 
-        location = new Location(x, y, z, pitch, yaw);
+        location = new InnerLocation(x, y, z, pitch, yaw);
     }
 
     public Type getType() {
@@ -173,6 +175,11 @@ public class Warp {
         return type.equals(Type.GLOBAL);
     }
 
+    public void teleportPlayer(Player player) {
+        Location point = new Location(player.getServer().getWorld(world), location.x, location.y, location.z, location.yaw, location.pitch);
+        player.teleport(point);
+    }
+
     public enum Type {
         PRIVATE,
         PUBLIC,
@@ -198,14 +205,14 @@ public class Warp {
             return null;
         }
     }
-    public class Location {
+    public class InnerLocation {
         private double x;
         private double y;
         private double z;
         private float pitch;
         private float yaw;
 
-        private Location(org.bukkit.Location location) {
+        private InnerLocation(org.bukkit.Location location) {
             x = location.getX();
             y = location.getY();
             z = location.getZ();
@@ -213,7 +220,7 @@ public class Warp {
             yaw = location.getYaw();
         }
 
-        private Location(double x, double y, double z, float pitch, float yaw) {
+        private InnerLocation(double x, double y, double z, float pitch, float yaw) {
             this.x = x;
             this.y = y;
             this.z = z;

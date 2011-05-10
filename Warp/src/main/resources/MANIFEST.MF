@@ -1,2 +1,2 @@
 Manifest-Version: 1.0
-Class-Path: ../lib/mysql-5.1.15.jar ../lib/utils-1.0-SNAPSHOT.jar
+Class-Path: ../lib/mysql-5.1.15.jar ../lib/utils-0.1.jar

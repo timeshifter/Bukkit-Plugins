@@ -16,6 +16,7 @@ public class WarpPlugin extends BasePlugin {
     protected ConnectionSettings settings;
     @SuppressWarnings("FieldNameHidesFieldInSuperclass")
     protected final Class clazz = getClass();
+    protected final WarpManager manager = new WarpManager();
 
     @Override
     public void onEnable() {
@@ -44,6 +45,7 @@ public class WarpPlugin extends BasePlugin {
     @Override
     protected void registerCommands() {
         Manager commands = new Manager(this, "warp");
+        commands.registerCommand(new GoCommand(this));
         commands.registerCommand(new CreateCommand(this));
         commands.registerCommand(new DeleteCommand(this));
         commands.registerCommand(new ListCommand(this));
@@ -54,6 +56,7 @@ public class WarpPlugin extends BasePlugin {
         commands.registerCommand(new MakeGlobalCommand(this));
         commands.registerCommand(new MakePrivateCommand(this));
         commands.registerCommand(new MakePublicCommand(this));
+        commands.setDefaultCommand("go");
         getCommand("warp").setExecutor(commands);
     }
 }

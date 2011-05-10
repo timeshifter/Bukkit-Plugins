@@ -20,6 +20,34 @@ public class WarpManager {
         return warps.size();
     }
 
+    static public boolean add(Warp warp) {
+        if (warps.contains(warp)) {
+            return false;
+        }
+        if (!WarpDataSource.saveWarp(warp)) {
+            return false;
+        }
+
+        warps.add(warp);
+        return true;
+    }
+
+    static public boolean delete(Warp warp) {
+        if (!WarpDataSource.deleteWarp(warp)) {
+            return false;
+        }
+
+        warps.remove(warp);
+        return true;
+    }
+
+    public static boolean update(Warp warp) {
+        if (!warps.contains(warp)) {
+            return false;
+        }
+        return WarpDataSource.saveWarp(warp);
+    }
+
     /**
      * Get a filterable list of warps.
      *
@@ -27,6 +55,45 @@ public class WarpManager {
      */
     static public WarpSet set() {
         return new WarpSet(new ArrayList<Warp>(warps));
+    }
+
+    /**
+     * Find a single warp by exact match
+     *
+     * @param player
+     * @param name
+     * @return
+     */
+    static public Warp get(Player player, String name) {
+        return find(player, player.getName(), name);
+    }
+
+    /**
+     * Find a single warp by exact match
+     *
+     * @param player
+     * @param owner
+     * @param name
+     * @return
+     */
+    static public Warp get(Player player, String owner, String name) {
+        WarpSet set = list(player);
+
+        set.filter(new FilterByOwner(owner));
+        set.filter(new FilterByName(name, FilterByName.Matcher.EXACT));
+
+        return set.size() == 1 ? set.first() : null;
+    }
+
+    /**
+     * Find a single warp
+     *
+     * @param player
+     * @param name
+     * @return
+     */
+    static public Warp find(Player player, String name) {
+        return find(player, player.getName(), name);
     }
 
     /**
@@ -40,7 +107,7 @@ public class WarpManager {
     static public Warp find(Player player, String owner, String name) {
         WarpSet set = list(player);
 
-        set.filter(new FilterByOwner(owner));
+        set.filter(new FilterByOwner(owner, FilterByOwner.Matcher.BEGINS));
         set.filter(new FilterByName(name, FilterByName.Matcher.BEGINS));
 
         return set.size() == 1 ? set.first() : null;

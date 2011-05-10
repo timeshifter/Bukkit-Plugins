@@ -5,6 +5,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import org.girsbrain.bukkit.warp.WarpPlugin;
+import org.girsbrain.bukkit.warp.datasource.Warp;
+import org.girsbrain.bukkit.warp.datasource.WarpManager;
 import org.girsbrain.utils.command.Command;
 
 /**
@@ -33,6 +35,19 @@ public class DeleteCommand extends Command {
             return true;
         }
 
+        String name = args[0];
+        Warp warp = WarpManager.get((Player) sender, args[0]);
+
+        if (null == warp) {
+            sender.sendMessage(ChatColor.RED + "No warp by the name of '" + ChatColor.GREEN + name + ChatColor.RED + "' could be found!");
+            return true;
+        }
+
+        if (WarpManager.delete(warp)) {
+            sender.sendMessage(ChatColor.GREEN + "Warp deleted!");
+        } else {
+            sender.sendMessage(ChatColor.RED + "Unable to delete warp! Unknown reason!");
+        }
         return true;
     }
 }
