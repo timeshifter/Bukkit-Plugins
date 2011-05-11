@@ -1,2 +1,2 @@
 Manifest-Version: 1.0
-Class-Path: ../lib/utils-0.1.jar
+Class-Path: ../lib/utils-0.2.jar

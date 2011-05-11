@@ -12,6 +12,8 @@ import org.bukkit.entity.Player;
 import org.girsbrain.bukkit.general.CommandHandler;
 import org.girsbrain.bukkit.general.GeneralPlugin;
 
+import org.girsbrain.utils.permissions.PermissionsHandler;
+
 /**
  * @author jlogsdon
  */
@@ -35,8 +37,9 @@ public class PlayerListCommand extends CommandHandler {
 
         if (player != null) {
             Map<String, String> report = new HashMap<String, String>();
-            report.put("Display Name", player.getDisplayName());
+            report.put("Name", player.getDisplayName());
             report.put("World", player.getWorld().getName());
+            report.put("Group", PermissionsHandler.getGroupDisplay(player));
 
             if (!ChatColor.stripColor(player.getDisplayName()).equalsIgnoreCase(player.getName())) {
                 report.put("Username", player.getName());
