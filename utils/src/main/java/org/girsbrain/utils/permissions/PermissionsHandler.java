@@ -51,4 +51,35 @@ public class PermissionsHandler {
                 return player.isOp();
         }
     }
+
+    public static String getGroup(Player player) {
+        switch (handler) {
+            case PERMISSIONS:
+                return ((Permissions)plugin).getHandler().getGroup(player.getWorld().getName(), player.getName());
+            default:
+                return "No Group";
+        }
+    }
+
+    public static String getGroupPrefix(Player player) {
+        switch (handler) {
+            case PERMISSIONS:
+                return ((Permissions)plugin).getHandler().getGroupPrefix(player.getWorld().getName(), getGroup(player));
+            default:
+                return "";
+        }
+    }
+
+    public static String getGroupSuffix(Player player) {
+        switch (handler) {
+            case PERMISSIONS:
+                return ((Permissions)plugin).getHandler().getGroupSuffix(player.getWorld().getName(), getGroup(player));
+            default:
+                return "";
+        }
+    }
+
+    public static String getGroupDisplay(Player player) {
+        return getGroupPrefix(player) + getGroup(player) + getGroupSuffix(player);
+    }
 }
