@@ -64,7 +64,7 @@ public class PlayerListCommand extends CommandHandler {
 
             if (name.length() > 0) {
                 if (result.length() > 0) result += ", ";
-                result += name;
+                result += PermissionsHandler.getGroupPrefix(player) + name + PermissionsHandler.getGroupSuffix(player);
                 count++;
             }
         }
